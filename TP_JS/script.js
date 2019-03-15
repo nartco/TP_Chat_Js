@@ -1,29 +1,13 @@
 
-function historique(message)
+function historiques(message, historique)
 {
-    var historique = [];
-    historique.push(message)
-    if(historique == 12)
-    {
-        for (let i = 0; i < historique.length; i++) 
-        {
-            console.log(historique[i][2] + ': ' + historique[i][3]);
-        }   
-    }
+    historique.unshift(message)
+    //console.log(historique);
+    return historique;
 }
 
 function affichage(chatmessage, date_m, id_user, pseudo, message, index)
 {
-    if (chatmessage.length == 5)
-    {
-        
-    }
-   
-    if (typeof id_user !== 'undefined')
-        chatmessage.push([id_user, date_m, pseudo, message]);
-    if (index == 'undefined')
-    index = 0;    
-    //chatmessage.reverse();
     for (let i = index; i < chatmessage.length; i++) 
     {
         console.log(chatmessage[i][2] + ': ' + chatmessage[i][3]);
@@ -42,44 +26,105 @@ function id(chatmessage, j)
             return id(chatmessage, j++);
         }
     }
-    return parseInt(id_user);
+    return id_user;
 
 }
 
-function messages(verif)
+function messages()
 {
-    var chatmessage = [[1, + new Date(), 'nartco', "Bonjour"], [2, + new Date(), 'juweby', "salout"]];
+    var chatmessage = [
+        {
+            "id": 1, 
+            "date": + new Date(),
+            "pseudo": 'nartco',
+            "message": 'Bonjour'
+        },
+
+        {
+            "id": 2,
+            "date": + new Date(),
+            "pseudo": 'juweby',
+            "message": "salout"
+        }
+    ];
+
     var id_user = 0;
-    if (verif == true)
-    affichage(chatmessage);
-    var pseudo = prompt('veuillez saisir votre pseudo');
-    var message = prompt('veuillez saisir votre message');
+    //if (verif == true)
+    //affichage(chatmessage);
+    
     var date_m;
+    var historique = [];
+    var i = 0;
 
     //console.log(pseudo);
-    if((pseudo != 'undefined' || pseudo != 'null') && !(pseudo.trim() == ""))
+    while (i < 11)
     {
-        if((message != 'undefined' ||  message != 'null') && !(message.trim() == ""))
+        i++;
+        var pseudo = prompt('veuillez saisir votre pseudo');
+        var message = prompt('veuillez saisir votre message');
+        if((pseudo != 'undefined' || pseudo != 'null') && !(pseudo.trim() == ""))
         {
-        date_m = + new Date();
-        id_user = parseInt(id(chatmessage, 1));
-        affichage(chatmessage,date_m, id_user, pseudo, message, (chatmessage.length - 1)); 
-       // index++;
-        return messages(chatmessage, false);
+            if((message != 'undefined' ||  message != 'null') && !(message.trim() == ""))
+            {
+                date_m = + new Date();
+                id_user = id(chatmessage, 1);
+                if(chatmessage.length < 5)
+                {
+                    chatmessage.unshift({
+                            "id": id_user, 
+                            "date": date_m, 
+                            "pseudo": pseudo, 
+                            "message": message
+                        });
+                    //affichage(chatmessage,date_m, id_user, pseudo, message, (chatmessage.length - 1)); 
+                    // index++;
+                    //console.log(chatmessage);
+                    //return messages(chatmessage);
+                }
+                else
+                {
+                    chatmessage.unshift({
+                        "id": id_user, 
+                        "date": date_m, 
+                        "pseudo": pseudo, 
+                        "message": message
+                    });
+                    var remove = chatmessage.pop()
+                    historique = historiques(remove, historique);
+                    if(historique.length == 8)
+                    {
+                        chatmessage.splice(3);
+                        for (let x = 0; x < chatmessage.length; x++)
+                            console.log(chatmessage[x]);
+                        
+                        for (let z = 0; z < historique.length; z++)
+                            console.log(historique[z]);
+
+                    }
+
+                }
+                
+            }
+            else
+            {
+                alert('vous devez saisir un message !');
+                return;
+            }
         }
         else
         {
-            alert('vous devez saisir un message !');
+            alert('vous devez saisir un pseudo !');
             return;
         }
     }
-    else
+    if (chatmessage.length == 12)
     {
-        alert('vous devez saisir un pseudo !');
-        return;
+
     }
+    
     
 }
 
 
 messages();
+//
