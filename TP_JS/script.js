@@ -2,17 +2,8 @@
 function historiques(message, historique)
 {
     historique.unshift(message)
-    //console.log(historique);
-    return historique;
-}
 
-function affichage(chatmessage, date_m, id_user, pseudo, message, index)
-{
-    for (let i = index; i < chatmessage.length; i++) 
-    {
-        console.log(chatmessage[i][2] + ': ' + chatmessage[i][3]);
-    }  
-    return;
+    return historique;
 }
 
 function id(chatmessage, j)
@@ -48,16 +39,12 @@ function messages()
         }
     ];
 
-    var id_user = 0;
-    //if (verif == true)
-    //affichage(chatmessage);
-    
+    var id_user = 0;    
     var date_m;
     var historique = [];
     var i = 0;
 
-    //console.log(pseudo);
-    while (i < 11)
+    while (i < 10)
     {
         i++;
         var pseudo = prompt('veuillez saisir votre pseudo');
@@ -76,10 +63,7 @@ function messages()
                             "pseudo": pseudo, 
                             "message": message
                         });
-                    //affichage(chatmessage,date_m, id_user, pseudo, message, (chatmessage.length - 1)); 
-                    // index++;
-                    //console.log(chatmessage);
-                    //return messages(chatmessage);
+
                 }
                 else
                 {
@@ -91,16 +75,6 @@ function messages()
                     });
                     var remove = chatmessage.pop()
                     historique = historiques(remove, historique);
-                    if(historique.length == 8)
-                    {
-                        chatmessage.splice(3);
-                        for (let x = 0; x < chatmessage.length; x++)
-                            console.log(chatmessage[x]);
-                        
-                        for (let z = 0; z < historique.length; z++)
-                            console.log(historique[z]);
-
-                    }
 
                 }
                 
@@ -117,14 +91,25 @@ function messages()
             return;
         }
     }
-    if (chatmessage.length == 12)
+    if(historique.length == 7)
     {
+        for (let x = 0; x < chatmessage.length; x++)
+        {
+            var text = document.createElement('p');
+            var content = document.createTextNode(chatmessage[x].pseudo + " " + chatmessage[x].message);
+            text.appendChild(content);
+            var currentDiv = document.getElementById("container"); 
+            document.body.insertBefore(text, currentDiv);
+                        //console.log(chatmessage[x]);
+        }
+            
+        
+        for (let z = 0; z < historique.length; z++)
+            console.log(historique[z]);
 
-    }
-    
+    }   
     
 }
-
 
 messages();
 //
