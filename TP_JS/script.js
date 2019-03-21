@@ -98,8 +98,8 @@ function messages()
             var text = document.createElement('p');
             var content = document.createTextNode(chatmessage[x].pseudo + " " + chatmessage[x].message);
             text.appendChild(content);
-            var currentDiv = document.getElementById("container"); 
-            document.body.insertBefore(text, currentDiv);
+            //var currentDiv = document.getElementById("container"); 
+            document.querySelector('div').appendChild(text);
                         //console.log(chatmessage[x]);
         }
             
