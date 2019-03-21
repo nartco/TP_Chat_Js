@@ -98,18 +98,21 @@ function messages()
             var text = document.createElement('p');
             var content = document.createTextNode(chatmessage[x].pseudo + " " + chatmessage[x].message);
             text.appendChild(content);
-            //var currentDiv = document.getElementById("container"); 
             document.querySelector('div').appendChild(text);
-                        //console.log(chatmessage[x]);
         }
             
         
         for (let z = 0; z < historique.length; z++)
-            console.log(historique[z]);
+        {
+            var text = document.createElement('p');
+            var content = document.createTextNode(historique[z].pseudo + " " + historique[z].message);
+            text.appendChild(content);
+            document.querySelector('div').appendChild(text);
+        }
+            
 
     }   
     
 }
 
 messages();
-//
